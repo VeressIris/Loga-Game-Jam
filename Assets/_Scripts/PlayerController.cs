@@ -15,18 +15,36 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private float jumpStrength = 10f;
+    [SerializeField] private float doubleJumpStrength = 6.5f;
+    [SerializeField] bool canDoubleJump = false;
+    private bool isDoubleJumping = false;
+
+    [Header("Health:")]
+    public int health = 3;
+
+    [Header("Dashing:")]
+    [SerializeField] private bool canDash = false;
+    [SerializeField] private float dashStrength = 2f;
+    [SerializeField] private float dashDuration = 0.25f;
+    [SerializeField] private float dashCooldown = 1.5f;
+    private bool isDashing = false;
+    private float originalGravity;
+
+    void Start()
+    {
+        health = PlayerPrefs.GetInt("PlayerHealth");
+    }
 
     void Update()
     {
         rb.velocity = new Vector2(moveInputX * walkSpeed, rb.velocity.y);
 
-        if (facingRight && moveInputX < 0)
+        if (facingRight && moveInputX < 0) Flip();
+        else if (!facingRight && moveInputX > 0) Flip();
+
+        if (IsGrounded())
         {
-            Flip();
-        }
-        else if (!facingRight && moveInputX > 0)
-        {
-            Flip();
+            isDoubleJumping = false;
         }
     }
 
@@ -37,9 +55,18 @@ public class PlayerController : MonoBehaviour
 
     public void Jump(InputAction.CallbackContext ctx)
     {
-        if (ctx.performed && IsGrounded())
+        if (ctx.performed)
         {
-            rb.velocity = new Vector2(rb.velocity.x, jumpStrength);
+            if (IsGrounded())
+            {
+                rb.velocity = new Vector2(rb.velocity.x, jumpStrength);
+            }
+            else if (!IsGrounded() && canDoubleJump && !isDoubleJumping)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, doubleJumpStrength);
+                
+                isDoubleJumping = true;
+            }
         }
 
         //make player jump higher the longer they hold the jump button
@@ -47,6 +74,34 @@ public class PlayerController : MonoBehaviour
         {
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
         }
+    }
+
+    public void Dash()
+    {
+        if (canDash && !isDashing)
+        {
+            Debug.Log("dash");
+            isDashing = true;
+            canDash = false;
+
+            originalGravity = rb.gravityScale;
+            rb.gravityScale = 0;
+
+            rb.AddForce(transform.right * dashStrength * transform.localScale.x, ForceMode2D.Force);
+
+            StartCoroutine(StopDash());
+        }
+    }
+
+    private IEnumerator StopDash()
+    {
+        yield return new WaitForSeconds(dashDuration);
+
+        rb.gravityScale = originalGravity;
+        isDashing = false;
+
+        yield return new WaitForSeconds(dashCooldown);
+        canDash = true;
     }
 
     private bool IsGrounded()
