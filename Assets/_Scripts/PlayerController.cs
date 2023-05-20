@@ -30,6 +30,9 @@ public class PlayerController : MonoBehaviour
     private bool isDashing = false;
     private float originalGravity;
 
+    [Header("Animation:")]
+    [SerializeField] private Animator anim;
+
     void Start()
     {
         health = PlayerPrefs.GetInt("PlayerHealth");
@@ -46,10 +49,21 @@ public class PlayerController : MonoBehaviour
         {
             isDoubleJumping = false;
         }
+
+        if (moveInputX == 0)
+        {
+            anim.Play("Idle");
+        }
+
+        if (!IsGrounded())
+        {
+            anim.Play("jump");
+        }
     }
 
     public void Move(InputAction.CallbackContext ctx)
     {
+        anim.Play("walk");
         moveInputX = ctx.ReadValue<Vector2>().x;
     }
 
@@ -63,6 +77,7 @@ public class PlayerController : MonoBehaviour
             }
             else if (!IsGrounded() && canDoubleJump && !isDoubleJumping)
             {
+                anim.Play("jump");
                 rb.velocity = new Vector2(rb.velocity.x, doubleJumpStrength);
                 
                 isDoubleJumping = true;

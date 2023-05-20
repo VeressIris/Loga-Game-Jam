@@ -36,7 +36,7 @@ public class EnemyController : MonoBehaviour
     public void DamagePlayer()
     {
         playerController.health -= damage;
-
+        
         if (playerController.health > 0)
         {
             //restart this level
