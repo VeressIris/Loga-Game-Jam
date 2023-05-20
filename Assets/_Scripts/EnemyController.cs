@@ -5,29 +5,21 @@ using UnityEngine.SceneManagement;
 
 public class EnemyController : MonoBehaviour
 {
-    [Header("Health:")]
-    public int health = 3;
-    
     [Header("Damage:")]
     [SerializeField] private int damage = 1;
     private PlayerController playerController;
+    private GameManager gameManager;
 
     void Start()
     {
         playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+
+        gameManager = GameObject.FindWithTag("GameController").GetComponent<GameManager>();
     }
 
-    void Update()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (health == 0)
-        {
-            Destroy(gameObject);
-        }
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag == "Player")
+        if (collision.tag == "Player")
         {
             DamagePlayer();
         }
@@ -36,7 +28,7 @@ public class EnemyController : MonoBehaviour
     public void DamagePlayer()
     {
         playerController.health -= damage;
-        
+
         if (playerController.health > 0)
         {
             //restart this level
@@ -45,9 +37,7 @@ public class EnemyController : MonoBehaviour
         }
         else
         {
-            //restart game
-            PlayerPrefs.SetInt("PlayerHealth", 3); //give player the health back
-            SceneManager.LoadScene(1);
+            gameManager.hearts[0].sprite = gameManager.greyHeart;
         }
     }
 }

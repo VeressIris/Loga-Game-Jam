@@ -18,10 +18,10 @@ public class ProjectileController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Enemy")
+        if (collision.tag == "Boss")
         {
-            EnemyController enemyController = collision.GetComponent<EnemyController>();
-            enemyController.health--;
+            //EnemyController enemyController = collision.GetComponent<EnemyController>();
+            //enemyController.health--;
             
             Destroy(gameObject);
         }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -18,6 +19,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float doubleJumpStrength = 6.5f;
     [SerializeField] bool canDoubleJump = false;
     private bool isDoubleJumping = false;
+    private bool isJumping = false;
 
     [Header("Health:")]
     public int health = 3;
@@ -31,33 +33,31 @@ public class PlayerController : MonoBehaviour
     private float originalGravity;
 
     [Header("Animation:")]
-    [SerializeField] private Animator anim;
+    public Animator anim;
+    [SerializeField] private PlayerInput playerInput;
 
     void Start()
     {
         health = PlayerPrefs.GetInt("PlayerHealth");
+
+        playerInput.enabled = true;
     }
 
     void Update()
     {
         rb.velocity = new Vector2(moveInputX * walkSpeed, rb.velocity.y);
 
-        if (facingRight && moveInputX < 0) Flip();
-        else if (!facingRight && moveInputX > 0) Flip();
-
         if (IsGrounded())
         {
             isDoubleJumping = false;
+            isJumping = false;
         }
 
-        if (moveInputX == 0)
-        {
-            anim.Play("Idle");
-        }
+        Animate();
 
-        if (!IsGrounded())
+        if (health == 0)
         {
-            anim.Play("jump");
+            StartCoroutine(KillPlayer());
         }
     }
 
@@ -73,6 +73,7 @@ public class PlayerController : MonoBehaviour
         {
             if (IsGrounded())
             {
+                isJumping = true;
                 rb.velocity = new Vector2(rb.velocity.x, jumpStrength);
             }
             else if (!IsGrounded() && canDoubleJump && !isDoubleJumping)
@@ -95,7 +96,8 @@ public class PlayerController : MonoBehaviour
     {
         if (canDash && !isDashing)
         {
-            Debug.Log("dash");
+            //anim.Play("dash");
+
             isDashing = true;
             canDash = false;
 
@@ -131,5 +133,36 @@ public class PlayerController : MonoBehaviour
         Vector3 localScale = transform.localScale;
         localScale.x *= -1; //flip sprite
         transform.localScale = localScale;
+    }
+
+    private void Animate()
+    {
+        if (facingRight && moveInputX < 0) Flip();
+        else if (!facingRight && moveInputX > 0) Flip();
+
+        if (health > 0)
+        {
+            if (IsIdle()) anim.Play("Idle");
+            if (!IsGrounded() && !isDashing) anim.Play("jump");
+            if (isDashing) anim.Play("dash"); 
+        }
+    }
+
+    private bool IsIdle()
+    {
+        return moveInputX == 0 && IsGrounded() && !isJumping && !isDoubleJumping && !isDashing;
+    }
+
+    private IEnumerator KillPlayer()
+    {
+        anim.Play("death");
+
+        playerInput.enabled = false;
+
+        yield return new WaitForSeconds(2f);
+
+        //restart game
+        PlayerPrefs.SetInt("PlayerHealth", 3); //give player the health back
+        SceneManager.LoadScene(1);
     }
 }

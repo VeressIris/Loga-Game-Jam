@@ -1,14 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     private bool paused = false;
     [SerializeField] private GameObject pauseScreen;
     [SerializeField] private GameObject healthBar;
-    [SerializeField] private GameObject[] hearts = new GameObject[3];
+    public Image[] hearts = new Image[3];
     private int playerHealth;
+    [SerializeField] private Sprite heartSprite;
+    public Sprite greyHeart;
 
     void Awake()
     {
@@ -46,7 +49,7 @@ public class GameManager : MonoBehaviour
     {
         for (int i = 0; i < playerHealth; i++)
         {
-            hearts[i].SetActive(true);
+            hearts[i].sprite = heartSprite;
         }
     }
 }
