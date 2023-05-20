@@ -29,4 +29,12 @@ public class SceneManagement : MonoBehaviour
         yield return new WaitForSeconds(transitionLength);
         SceneManager.LoadScene(lvlIndex);
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Player")
+        {
+            LoadNextLevel();
+        }
+    }
 }
