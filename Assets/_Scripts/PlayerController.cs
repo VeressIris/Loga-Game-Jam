@@ -35,7 +35,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Animation:")]
     public Animator anim;
-    [SerializeField] private PlayerInput playerInput;
+    public PlayerInput playerInput;
 
     [Header("SFX:")]
     [SerializeField] private AudioSource audioSrc;

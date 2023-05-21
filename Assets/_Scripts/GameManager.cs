@@ -49,12 +49,14 @@ public class GameManager : MonoBehaviour
         if (!paused)
         {
             Time.timeScale = 0;
+            playerController.playerInput.enabled = false;
             pauseScreen.SetActive(true);
             healthBar.SetActive(false);
         }
         else
         {
             Time.timeScale = 1;
+            playerController.playerInput.enabled = true;
             pauseScreen.SetActive(false);
             healthBar.SetActive(true);
         }
