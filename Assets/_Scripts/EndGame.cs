@@ -29,7 +29,7 @@ public class EndGame : MonoBehaviour
         if (collision.tag == "Player")
         {
             textBox.SetActive(false);
-            sceneManagement.LoadNextLevel();
+            sceneManagement.LoadNextLevel(1);
         }
     }
 }
