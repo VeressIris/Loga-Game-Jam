@@ -10,6 +10,7 @@ public class SceneManagement : MonoBehaviour
 
     void Start()
     {
+        Time.timeScale = 1;
         Debug.Log(PlayerPrefs.GetInt("PlayerHealth"));
     }
 
@@ -21,6 +22,18 @@ public class SceneManagement : MonoBehaviour
     public void LoadNextLevel(int lvl)
     {
         StartCoroutine(PlayTransition(lvl));
+    }
+
+    public void ReturnToMenu()
+    {
+        SceneManager.LoadScene(0);
+        //StartCoroutine(PlayTransition(0));
+    }
+
+    public void RetryLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        //StartCoroutine(PlayTransition(SceneManager.GetActiveScene().buildIndex));
     }
 
     IEnumerator PlayTransition(int lvlIndex)

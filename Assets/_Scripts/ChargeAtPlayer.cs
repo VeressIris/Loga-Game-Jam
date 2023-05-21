@@ -10,11 +10,15 @@ public class ChargeAtPlayer : MonoBehaviour
     public Vector2 target;
     private bool targetAquired = false;
     [SerializeField] private Vector2 startingPos;
-    [SerializeField] private Animator anim;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
     private bool turnAround = false;
     private float initLocalScale;
+    [SerializeField] private Animator anim;
+
+    [Header("Sound:")]
+    [SerializeField] private AudioSource audioSrc;
+    [SerializeField] private AudioClip roar;
 
     void Start()
     {
@@ -60,6 +64,7 @@ public class ChargeAtPlayer : MonoBehaviour
         transform.localScale = new Vector3(initLocalScale, transform.localScale.y, transform.localScale.z);
 
         anim.Play("bear roar");
+        if (!audioSrc.isPlaying) audioSrc.PlayOneShot(roar, 0.625f);
 
         yield return new WaitForSeconds(1.14f);
         

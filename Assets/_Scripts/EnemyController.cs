@@ -12,6 +12,11 @@ public class EnemyController : MonoBehaviour
     [Header("Health:")]
     public int health = 3;
 
+    [Header("SFX:")]
+    [SerializeField] private AudioSource audioSrc;
+    [SerializeField] private AudioClip deathSFX;
+    private bool triggered = false;
+
     void Start()
     {
         playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
@@ -23,7 +28,15 @@ public class EnemyController : MonoBehaviour
     {
         if (health == 0)
         {
-            Destroy(gameObject);
+            if (!triggered && !audioSrc.isPlaying)
+            {
+                triggered = true;
+                audioSrc.PlayOneShot(deathSFX);
+            }
+            else if (triggered && !audioSrc.isPlaying)
+            {
+                Destroy(gameObject);
+            }
         }
     }
 

@@ -31,16 +31,26 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float dashCooldown = 1.5f;
     private bool isDashing = false;
     private float originalGravity;
+    [SerializeField] private TrailRenderer trailRenderer;
 
     [Header("Animation:")]
     public Animator anim;
     [SerializeField] private PlayerInput playerInput;
+
+    [Header("SFX:")]
+    [SerializeField] private AudioSource audioSrc;
+    [SerializeField] private AudioClip jumpSFX;
+    [SerializeField] private AudioClip dashSFX;
+    [SerializeField] private AudioClip deathSFX;
+    private bool deathSFXplaying = false; // such a shitty way to go about the looping sound
 
     void Start()
     {
         health = PlayerPrefs.GetInt("PlayerHealth");
 
         playerInput.enabled = true;
+
+        trailRenderer.emitting = false;
     }
 
     void Update()
@@ -71,14 +81,15 @@ public class PlayerController : MonoBehaviour
     {
         if (ctx.performed)
         {
-
             if (IsGrounded())
             {
+                audioSrc.PlayOneShot(jumpSFX, 0.8f);
                 isJumping = true;
                 rb.velocity = new Vector2(rb.velocity.x, jumpStrength);
             }
             else if (!IsGrounded() && canDoubleJump && !isDoubleJumping)
             {
+                audioSrc.PlayOneShot(jumpSFX, 0.8f);
                 anim.Play("jump");
                 rb.velocity = new Vector2(rb.velocity.x, doubleJumpStrength);
                 
@@ -97,7 +108,8 @@ public class PlayerController : MonoBehaviour
     {
         if (canDash && !isDashing)
         {
-            
+            audioSrc.PlayOneShot(dashSFX, 2f);
+            trailRenderer.emitting = true;
 
             isDashing = true;
             canDash = false;
@@ -114,6 +126,7 @@ public class PlayerController : MonoBehaviour
     private IEnumerator StopDash()
     {
         yield return new WaitForSeconds(dashDuration);
+        trailRenderer.emitting = false;
 
         rb.gravityScale = originalGravity;
         isDashing = false;
@@ -158,6 +171,12 @@ public class PlayerController : MonoBehaviour
     private IEnumerator KillPlayer()
     {
         anim.Play("death");
+        if (!deathSFXplaying)
+        {
+            audioSrc.PlayOneShot(deathSFX, 1.42f);
+            deathSFXplaying = true;
+        }
+
         playerInput.enabled = false;
 
         yield return new WaitForSeconds(2f);
