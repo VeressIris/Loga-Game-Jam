@@ -238,7 +238,7 @@ GameObject:
   - component: {fileID: 319010501}
   - component: {fileID: 319010500}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Play text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -286,8 +286,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Play
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: faddb0b178621c9418e2e8383008760d, type: 2}
+  m_sharedMaterial: {fileID: 7130882023552743426, guid: faddb0b178621c9418e2e8383008760d, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -373,7 +373,7 @@ GameObject:
   - component: {fileID: 586093422}
   - component: {fileID: 586093421}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Title
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -423,8 +423,8 @@ MonoBehaviour:
 
 '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: faddb0b178621c9418e2e8383008760d, type: 2}
+  m_sharedMaterial: {fileID: 7130882023552743426, guid: faddb0b178621c9418e2e8383008760d, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -815,6 +815,10 @@ PrefabInstance:
     - target: {fileID: 3063557476640278510, guid: 3be472f4aef8670469263dca57c7d186, type: 3}
       propertyPath: m_Name
       value: Circle Transition
+      objectReference: {fileID: 0}
+    - target: {fileID: 3063557476640278510, guid: 3be472f4aef8670469263dca57c7d186, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3063557476640278511, guid: 3be472f4aef8670469263dca57c7d186, type: 3}
       propertyPath: m_Pivot.x
