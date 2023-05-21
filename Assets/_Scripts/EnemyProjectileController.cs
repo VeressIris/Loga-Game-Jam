@@ -15,6 +15,14 @@ public class EnemyProjectileController : MonoBehaviour
         rb.velocity = transform.right * speed * -1;
     }
 
+    void Update()
+    {
+        if (transform.position.x < -15)
+        {
+            Destroy(gameObject);
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Player")

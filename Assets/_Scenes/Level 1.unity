@@ -2033,11 +2033,11 @@ MonoBehaviour:
   m_ScreenY: 0.73
   m_CameraDistance: 10
   m_DeadZoneWidth: 0.25
-  m_DeadZoneHeight: 1
+  m_DeadZoneHeight: 2
   m_DeadZoneDepth: 0
   m_UnlimitedSoftZone: 0
   m_SoftZoneWidth: 0.8
-  m_SoftZoneHeight: 1
+  m_SoftZoneHeight: 2
   m_BiasX: 0.00000010837208
   m_BiasY: 0
   m_CenterOnActivate: 1
@@ -2639,7 +2639,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1592477905}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7447,7 +7447,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5582752405129781766, guid: 51ab846ac9e693c41b095746c4f6546c, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -335
+      value: -455.13
       objectReference: {fileID: 0}
     - target: {fileID: 5582752405129781766, guid: 51ab846ac9e693c41b095746c4f6546c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -7460,10 +7460,6 @@ PrefabInstance:
     - target: {fileID: 5582752405129781766, guid: 51ab846ac9e693c41b095746c4f6546c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5582752405129781767, guid: 51ab846ac9e693c41b095746c4f6546c, type: 3}
-      propertyPath: m_text
-      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 51ab846ac9e693c41b095746c4f6546c, type: 3}
