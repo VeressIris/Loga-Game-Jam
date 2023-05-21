@@ -8,6 +8,7 @@ public class InteractableObject : MonoBehaviour
     [SerializeField] private GameObject textBox;
     [SerializeField] private string text;
     [SerializeField] private TMP_Text TMPText;
+    [SerializeField] private GameEnding gameEndingScript;
 
     void Start()
     {
@@ -16,7 +17,7 @@ public class InteractableObject : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Player")
+        if (collision.tag == "Player" && !gameEndingScript.startLeaving)
         {
             TMPText.text = text;
             textBox.SetActive(true);

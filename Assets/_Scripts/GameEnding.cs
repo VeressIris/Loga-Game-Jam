@@ -12,7 +12,7 @@ public class GameEnding : MonoBehaviour
     [Header("Leaving:")]
     [SerializeField] private float speed = 5f;
     [SerializeField] private Transform target;
-    private bool startLeaving = false;
+    [HideInInspector] public bool startLeaving = false;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

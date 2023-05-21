@@ -33,6 +33,7 @@ public class EnemyController : MonoBehaviour
         {
             //restart this level
             PlayerPrefs.SetInt("PlayerHealth", playerController.health);
+            PlayerPrefs.SetFloat("Timer", gameManager.timer);
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
         else

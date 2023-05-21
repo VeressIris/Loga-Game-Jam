@@ -57,15 +57,15 @@ public class PlayerController : MonoBehaviour
 
         Animate();
 
-        if (health == 0)
+        if (health <= 0)
         {
+            PlayerPrefs.SetFloat("Timer", 0f);
             StartCoroutine(KillPlayer());
         }
     }
 
     public void Move(InputAction.CallbackContext ctx)
     {
-        anim.Play("walk");
         moveInputX = ctx.ReadValue<Vector2>().x;
     }
 
@@ -146,7 +146,8 @@ public class PlayerController : MonoBehaviour
         {
             if (IsIdle()) anim.Play("Idle");
             if (!IsGrounded() && !isDashing) anim.Play("jump");
-            if (isDashing) anim.Play("dash"); 
+            if (isDashing) anim.Play("dash");
+            if (IsGrounded() && moveInputX != 0) anim.Play("walk");
         }
     }
 
