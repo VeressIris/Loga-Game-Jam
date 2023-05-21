@@ -54,6 +54,8 @@ public class ChargeAtPlayer : MonoBehaviour
 
     private IEnumerator AquireTarget()
     {
+        target = new Vector2(player.transform.position.x, transform.position.y);
+        
         transform.localScale = new Vector3(initLocalScale, transform.localScale.y, transform.localScale.z);
 
         anim.Play("bear roar");
@@ -61,8 +63,6 @@ public class ChargeAtPlayer : MonoBehaviour
         yield return new WaitForSeconds(1.14f);
         
         anim.Play("bear run");
-
-        target = new Vector2(player.transform.position.x, transform.position.y);
 
         targetAquired = true;
     }

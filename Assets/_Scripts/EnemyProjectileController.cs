@@ -12,7 +12,7 @@ public class EnemyProjectileController : MonoBehaviour
     {
         enemyController = GameObject.FindWithTag("ShootingEnemy").GetComponent<EnemyController>();
 
-        rb.velocity = transform.right * speed;
+        rb.velocity = transform.right * speed * -1;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
