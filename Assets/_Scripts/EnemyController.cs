@@ -9,12 +9,22 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private int damage = 1;
     private PlayerController playerController;
     private GameManager gameManager;
+    [Header("Health:")]
+    public int health = 3;
 
     void Start()
     {
         playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
 
         gameManager = GameObject.FindWithTag("GameController").GetComponent<GameManager>();
+    }
+
+    void Update()
+    {
+        if (health == 0)
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

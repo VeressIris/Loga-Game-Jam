@@ -8,10 +8,33 @@ public class Shooting : MonoBehaviour
     [SerializeField] private Transform startPos;
     [SerializeField] private float shootCooldown = 1.8f;
     [HideInInspector] public bool canShoot = true;
+    private bool inRange = true;
+    private Transform playerTransform;
+    [SerializeField] private float range = 30f;
+
+    private void Start()
+    {
+        if (this.tag == "ShootingEnemy")
+        {
+            playerTransform = GameObject.FindWithTag("Player").transform;
+        }
+    }
 
     public void Shoot()
     {
-        if (canShoot)
+        if (this.tag == "ShootingEnemy")
+        {
+            if (Vector2.Distance(transform.position, playerTransform.position) <= range)
+            {
+                inRange = true;
+            }
+            else
+            {
+                inRange = false;
+            }
+        }
+        
+        if (canShoot && inRange)
         {
             StartCoroutine(InstantiateProjectile());
         }

@@ -35,6 +35,7 @@ public class ChargeAtPlayer : MonoBehaviour
         
         if (targetAquired)
         {
+            Debug.Log(FoundLedge());
             if (FoundLedge() && !turnAround)
             {
                 turnAround = true;
@@ -82,7 +83,7 @@ public class ChargeAtPlayer : MonoBehaviour
         {
             anim.Play("bear idle");
 
-            yield return new WaitForSeconds(0.8f);
+            yield return new WaitForSeconds(0.5f);
 
             targetAquired = false;
             turnAround = false;

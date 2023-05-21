@@ -41,8 +41,6 @@ public class PlayerController : MonoBehaviour
         health = PlayerPrefs.GetInt("PlayerHealth");
 
         playerInput.enabled = true;
-
-        rb.bodyType = RigidbodyType2D.Dynamic;
     }
 
     void Update()
@@ -159,7 +157,6 @@ public class PlayerController : MonoBehaviour
     private IEnumerator KillPlayer()
     {
         anim.Play("death");
-        rb.bodyType = RigidbodyType2D.Static;
         playerInput.enabled = false;
 
         yield return new WaitForSeconds(2f);
