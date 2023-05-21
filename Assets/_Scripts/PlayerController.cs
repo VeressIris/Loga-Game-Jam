@@ -71,6 +71,7 @@ public class PlayerController : MonoBehaviour
     {
         if (ctx.performed)
         {
+
             if (IsGrounded())
             {
                 isJumping = true;
@@ -96,7 +97,7 @@ public class PlayerController : MonoBehaviour
     {
         if (canDash && !isDashing)
         {
-            //anim.Play("dash");
+            
 
             isDashing = true;
             canDash = false;

@@ -18,9 +18,9 @@ public class SceneManagement : MonoBehaviour
         Application.Quit();
     }
 
-    public void LoadNextLevel()
+    public void LoadNextLevel(int lvl)
     {
-        StartCoroutine(PlayTransition(SceneManager.GetActiveScene().buildIndex + 1));
+        StartCoroutine(PlayTransition(lvl));
     }
 
     IEnumerator PlayTransition(int lvlIndex)
@@ -34,7 +34,7 @@ public class SceneManagement : MonoBehaviour
     {
         if (collision.tag == "Player" && this.tag != "Interactable")
         {
-            LoadNextLevel();
+            LoadNextLevel(SceneManager.GetActiveScene().buildIndex + 1);
         }
     }
 }
